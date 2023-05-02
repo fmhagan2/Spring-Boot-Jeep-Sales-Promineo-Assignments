@@ -4,6 +4,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import java.util.List;
 import java.util.Map;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.core.ParameterizedTypeReference;
@@ -22,7 +23,7 @@ import com.promineotech.jeep.entity.JeepModel;
 @Sql(scripts = {"classpath:flyway/migrations/V1.0__Jeep_Schema.sql", 
                 "classpath:flyway/migrations/V1.1__Jeep_Data.sql"},
 
-                config = @SqlConfig(encoding = "utf-8"))
+     config = @SqlConfig(encoding = "utf-8"))
 
 class FetchJeepTest extends FetchJeepTestSupport{
   
@@ -41,7 +42,7 @@ class FetchJeepTest extends FetchJeepTestSupport{
     //Given: a valid model, trim and URI
     JeepModel model = JeepModel.WRANGLER;
     String trim = "Sport";
-    String uri = String.format("%s?model=%s&trim=%s", getBaseUri(), model, trim);
+    String uri = String.format("%s?model=%s&trim=%s", getBaseUriForJeeps(), model, trim);
     
     
     //When: a connection is made to the URI
@@ -68,7 +69,7 @@ class FetchJeepTest extends FetchJeepTestSupport{
     //Given: a valid model, trim and URI
     JeepModel model = JeepModel.WRANGLER;
     String trim = "Unknown Value";
-    String uri = String.format("%s?model=%s&trim=%s", getBaseUri(), model, trim);
+    String uri = String.format("%s?model=%s&trim=%s", getBaseUriForJeeps(), model, trim);
     
     
     //When: a connection is made to the URI
@@ -92,12 +93,12 @@ class FetchJeepTest extends FetchJeepTestSupport{
     // @formatter.on  
   }
   
-//  @ParamTest
+//  @ParameterizedTest
 //  void testErrorMessageIsReturnedWhenAnInvalidTrimIsSupplied() {
 //    //Given: a valid model, trim and URI
 //    JeepModel model = JeepModel.WRANGLER;
 //    String trim = "Unknown Value";
-//    String uri = String.format("%s?model=%s&trim=%s", getBaseUri(), model, trim);
+//    String uri = String.format("%s?model=%s&trim=%s", getBaseUriForJeeps(), model, trim);
 //    
 //    
 //    //When: a connection is made to the URI
